@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 形状与 Hover 交互作业</title>
+    <style>
+        /* ============ 基础重置 ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1d1b1a;      /* 深色背景，突出图形的发光效果 */
+            font-family: "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+        }
+
+        /* ============ 舞台：横向排列 6 个图形 ============ */
+        .stage {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 56px;
+            padding: 56px 32px;
+        }
+
+        /* ============ 图形公共样式（课堂案例中的 .cube） ============ */
+        .cube {
+            width: 170px;
+            height: 170px;
+            /* 让“hover”文字在图形中央：用弹性盒子居中 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            /* 位移与阴影都做过渡，鼠标移入移出才顺滑 */
+            transition: transform .35s ease, box-shadow .35s ease;
+        }
+
+        /* 图形中间的“hover”字样：默认透明且略微下沉 */
+        .cube span {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, .25);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity .35s ease, transform .35s ease;
+            user-select: none;
+        }
+
+        /* ============ 鼠标滑过：上移 10px + 阴影偏移量变为 0 ============ */
+        .cube:hover {
+            transform: translateY(-10px);                            /* 位置上移 10 像素 */
+            box-shadow: 0 0 28px var(--glow, rgba(255, 255, 255, .5)); /* 偏移量由 0 10px 变成 0 0，只剩四周发光 */
+        }
+
+        /* 鼠标滑过：文字淡入并回到正中间 */
+        .cube:hover span {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============ 形状 1：直角正方形 + 斜向渐变 ============ */
+        .c1 {
+            border-radius: 0;
+            background: linear-gradient(135deg, #ff9a56, #ff5e62);
+            --glow: rgba(255, 94, 98, .8);
+            box-shadow: 0 10px 24px rgba(255, 94, 98, .35);
+        }
+
+        /* ============ 形状 2：小圆角正方形（绿色） ============ */
+        .c2 {
+            border-radius: 36px;
+            background: linear-gradient(160deg, #3ad79a, #22c489);
+            --glow: rgba(46, 206, 147, .8);
+            box-shadow: 0 10px 24px rgba(46, 206, 147, .35);
+        }
+
+        /* ============ 形状 3：大圆角正方形（紫色，接近“胶囊方块”） ============ */
+        .c3 {
+            border-radius: 52px;
+            background: linear-gradient(160deg, #a488bd, #8f74ad);
+            --glow: rgba(155, 127, 181, .8);
+            box-shadow: 0 10px 24px rgba(155, 127, 181, .35);
+        }
+
+        /* ============ 形状 4：正圆（琥珀黄） ============ */
+        .c4 {
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #ffd479, #f2b64d 70%);
+            --glow: rgba(245, 195, 87, .85);
+            box-shadow: 0 10px 24px rgba(245, 195, 87, .35);
+        }
+        /* 黄色偏亮，文字换成深色更清楚 */
+        .c4 span {
+            color: #8a4b0f;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, .35);
+        }
+
+        /* ============ 形状 5：中等圆角正方形（墨绿/青色） ============ */
+        .c5 {
+            border-radius: 40px;
+            background: linear-gradient(160deg, #55918a, #44776f);
+            --glow: rgba(93, 156, 146, .8);
+            box-shadow: 0 10px 24px rgba(93, 156, 146, .35);
+        }
+
+        /* ============ 形状 6：正圆（淡紫，左上角提亮的球面感） ============ */
+        .c6 {
+            border-radius: 50%;
+            background: radial-gradient(circle at 32% 28%, #c3a4d3, #a684bb 75%);
+            --glow: rgba(179, 145, 196, .85);
+            box-shadow: 0 10px 24px rgba(179, 145, 196, .35);
+        }
+        .c6 span {
+            color: #4a2b57;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, .35);
+        }
+    </style>
+</head>
+<body>
+    <div class="stage">
+        <!-- 每个图形里放一个 span，用来显示滑过时的“hover”文字 -->
+        <div class="cube c1"><span>hover</span></div>
+        <div class="cube c2"><span>hover</span></div>
+        <div class="cube c3"><span>hover</span></div>
+        <div class="cube c4"><span>hover</span></div>
+        <div class="cube c5"><span>hover</span></div>
+        <div class="cube c6"><span>hover</span></div>
+    </div>
+</body>
+</html>
